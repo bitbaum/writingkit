@@ -9,12 +9,14 @@ export function readDraft(storage, key) {
         if (!raw)
             return null;
         const draft = JSON.parse(raw);
-        if (typeof draft.title !== 'string' || typeof draft.body !== 'string')
+        if (typeof draft.title !== "string" || typeof draft.body !== "string")
             return null;
         return {
             title: draft.title,
             body: draft.body,
-            savedAt: typeof draft.savedAt === 'string' ? draft.savedAt : new Date(0).toISOString(),
+            savedAt: typeof draft.savedAt === "string"
+                ? draft.savedAt
+                : new Date(0).toISOString(),
             extra: draft.extra,
         };
     }

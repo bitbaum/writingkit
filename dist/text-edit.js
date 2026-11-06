@@ -9,8 +9,12 @@ export function insertBlock(text, start, end, snippet) {
     const to = Math.min(Math.max(from, end), text.length);
     const before = text.slice(0, from);
     const after = text.slice(to);
-    const pad = before && !before.endsWith('\n\n') ? (before.endsWith('\n') ? '\n' : '\n\n') : '';
-    const next = before + pad + snippet + (after.startsWith('\n') ? '' : '\n\n') + after;
+    const pad = before && !before.endsWith("\n\n")
+        ? before.endsWith("\n")
+            ? "\n"
+            : "\n\n"
+        : "";
+    const next = before + pad + snippet + (after.startsWith("\n") ? "" : "\n\n") + after;
     const caret = (before + pad + snippet).length;
     return { text: next, selectionStart: caret, selectionEnd: caret };
 }
@@ -35,9 +39,12 @@ export function readingMinutes(text) {
 }
 /** An image as a Markdown figure: alt, source, and a caption carrying its credit. */
 export function figureMarkdown(image) {
-    const credit = [image.credit, image.license].filter(Boolean).join(', ');
-    const caption = [image.caption || image.alt, credit].filter(Boolean).join(' — ').replace(/"/g, '”');
-    return `![${image.alt.replace(/[[\]]/g, '')}](${image.src} "${caption}")`;
+    const credit = [image.credit, image.license].filter(Boolean).join(", ");
+    const caption = [image.caption || image.alt, credit]
+        .filter(Boolean)
+        .join(" — ")
+        .replace(/"/g, "”");
+    return `![${image.alt.replace(/[[\]]/g, "")}](${image.src} "${caption}")`;
 }
 export const CHART_TEMPLATE = `\`\`\`chart
 { "kind": "bar", "title": "Say what the numbers show", "series": [{ "name": "Series", "points": [["2024", 10], ["2025", 14], ["2026", 9]] }] }

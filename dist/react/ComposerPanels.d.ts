@@ -1,5 +1,5 @@
-import { type ComposerVoice } from '@bitbaum/chatkit/react';
-import type { ComposerLabels } from './labels.js';
+import { type ComposerVoice } from "@bitbaum/chatkit/react";
+import type { ComposerLabels } from "./labels.js";
 /**
  * "Say what to write": a spoken or typed brief becomes an article, or the
  * words go straight into the text. The microphone is chatkit's — the same one

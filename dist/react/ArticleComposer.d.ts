@@ -1,9 +1,9 @@
-import { type ReactNode } from 'react';
-import { type ComposerVoice } from '@bitbaum/chatkit/react';
-import { type DraftStorage } from '../drafts.js';
-import { type AssistMode } from '../assist.js';
-import { type ComposerLabels } from './labels.js';
-export type ArticleStatus = 'published' | 'draft';
+import { type ReactNode } from "react";
+import { type ComposerVoice } from "@bitbaum/chatkit/react";
+import { type DraftStorage } from "../drafts.js";
+import { type AssistMode } from "../assist.js";
+import { type ComposerLabels } from "./labels.js";
+export type ArticleStatus = "published" | "draft";
 export interface ArticleContent {
     title: string;
     body: string;
