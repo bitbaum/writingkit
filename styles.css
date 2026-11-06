@@ -1,0 +1,172 @@
+/*
+ * ArticleComposer. Colours, radii and sizes are chatkit's --ck-* tokens, the
+ * same ones an app already maps for its chats, so there is no second set to
+ * keep in step. Phone first: 16px text, 44px targets, nothing scrolls sideways.
+ */
+.wk-composer {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  font-family: var(--ck-font, inherit);
+  color: var(--ck-fg);
+}
+.wk-form {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.wk-title .ck-field-input {
+  font-weight: 600;
+  line-height: 1.3;
+}
+.wk-body .ck-field-input {
+  line-height: 1.7;
+  min-height: 15rem;
+}
+.wk-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.wk-meta {
+  margin: 0;
+  color: var(--ck-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.wk-meta a {
+  color: inherit;
+  font-weight: 600;
+}
+.wk-editor-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+}
+.wk-tabs,
+.wk-tools {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+  min-width: 0;
+}
+.wk-format {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.25rem;
+}
+.wk-tab,
+.wk-tool,
+.wk-btn {
+  min-height: var(--ck-target, 44px);
+  min-width: 0;
+  padding: 0 0.75rem;
+  border: 1px solid var(--ck-line-2, var(--ck-line));
+  border-radius: var(--ck-radius-sm);
+  background: var(--ck-raised);
+  color: var(--ck-fg);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.wk-tab[aria-selected="true"],
+.wk-tool[aria-pressed="true"] {
+  background: var(--ck-fg);
+  border-color: var(--ck-fg);
+  color: var(--ck-bg);
+}
+.wk-tab:disabled,
+.wk-tool:disabled,
+.wk-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.wk-btn-primary {
+  background: var(--ck-accent);
+  border-color: var(--ck-accent);
+  color: var(--ck-on-accent, #fff);
+}
+.wk-btn-wide {
+  width: 100%;
+}
+.wk-link {
+  font: inherit;
+  font-weight: 700;
+  color: var(--ck-accent);
+  background: none;
+  border: 0;
+  padding: 0.5rem 0;
+  min-height: var(--ck-target, 44px);
+  cursor: pointer;
+}
+.wk-panel {
+  display: grid;
+  gap: 0.625rem;
+  min-width: 0;
+  padding: 0.875rem;
+  border: 1px solid var(--ck-line);
+  border-radius: var(--ck-radius);
+  background: var(--ck-raised);
+}
+.wk-panel-title {
+  margin: 0;
+  font-size: 1.0625rem;
+}
+.wk-code {
+  margin: 0;
+  padding: 0.75rem;
+  overflow-x: auto;
+  border-radius: var(--ck-radius-sm);
+  background: var(--ck-bg);
+  font-family: var(--ck-mono, monospace);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.wk-actions-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+}
+.wk-preview {
+  min-height: 15rem;
+  padding: 0.875rem;
+  border: 1px solid var(--ck-line);
+  border-radius: var(--ck-radius-sm);
+  overflow-wrap: anywhere;
+}
+.wk-problems {
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--ck-danger);
+  border-radius: var(--ck-radius-sm);
+  background: var(--ck-danger-soft, transparent);
+  font-size: 0.9375rem;
+}
+.wk-problems ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.wk-publish {
+  display: grid;
+  gap: 0.5rem;
+}
+@media (max-width: 420px) {
+  .wk-btn {
+    white-space: normal;
+  }
+  .wk-actions-row {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+  }
+}

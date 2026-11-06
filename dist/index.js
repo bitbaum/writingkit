@@ -87,3 +87,6 @@ export class WritingSession {
         return operation.epoch === this.epoch ? 'current' : 'stale';
     }
 }
+export * from './assist.js';
+export * from './text-edit.js';
+export * from './drafts.js';

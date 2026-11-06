@@ -10,8 +10,8 @@ export interface WritingOperation {
 }
 
 export type WritingOutcome =
-  | { readonly status: 'applied' | 'stale' | 'cancelled' | 'busy' }
-  | { readonly status: 'failed'; readonly error: unknown };
+  | { readonly status: "applied" | "stale" | "cancelled" | "busy" }
+  | { readonly status: "failed"; readonly error: unknown };
 
 type Pending = WritingOperation & { readonly epoch: number };
 
@@ -24,7 +24,8 @@ type Pending = WritingOperation & { readonly epoch: number };
 export class WritingSession {
   private current: WritingRevision;
   private epoch = 0;
-  private pending: (Pending & { readonly controller: AbortController }) | null = null;
+  private pending: (Pending & { readonly controller: AbortController }) | null =
+    null;
   private closed = false;
 
   constructor(base: WritingRevision) {
@@ -58,13 +59,13 @@ export class WritingSession {
    */
   async run<T>(
     work: (operation: WritingOperation) => Promise<T>,
-    apply: (value: T, base: WritingRevision) => undefined
+    apply: (value: T, base: WritingRevision) => undefined,
   ): Promise<WritingOutcome> {
     if (this.closed) {
-      return { status: 'cancelled' };
+      return { status: "cancelled" };
     }
     if (this.pending) {
-      return { status: 'busy' };
+      return { status: "busy" };
     }
     const controller = new AbortController();
     const operation = {
@@ -75,16 +76,19 @@ export class WritingSession {
     };
     this.pending = operation;
     try {
-      const value = await work({ base: operation.base, signal: operation.signal });
+      const value = await work({
+        base: operation.base,
+        signal: operation.signal,
+      });
       const status = this.status(operation);
-      if (status !== 'current') {
+      if (status !== "current") {
         return { status };
       }
       apply(value, operation.base);
-      return { status: 'applied' };
+      return { status: "applied" };
     } catch (error) {
       const status = this.status(operation);
-      return status === 'current' ? { status: 'failed', error } : { status };
+      return status === "current" ? { status: "failed", error } : { status };
     } finally {
       // An old cancellation/completion must never clear the next operation.
       if (this.pending === operation) {
@@ -105,10 +109,14 @@ export class WritingSession {
     this.cancel();
   }
 
-  private status(operation: Pending): 'current' | 'stale' | 'cancelled' {
+  private status(operation: Pending): "current" | "stale" | "cancelled" {
     if (this.closed || this.pending !== operation || operation.signal.aborted) {
-      return 'cancelled';
+      return "cancelled";
     }
-    return operation.epoch === this.epoch ? 'current' : 'stale';
+    return operation.epoch === this.epoch ? "current" : "stale";
   }
 }
+
+export * from "./assist.js";
+export * from "./text-edit.js";
+export * from "./drafts.js";

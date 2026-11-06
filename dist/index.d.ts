@@ -38,3 +38,6 @@ export declare class WritingSession {
     dispose(): void;
     private status;
 }
+export * from './assist.js';
+export * from './text-edit.js';
+export * from './drafts.js';
