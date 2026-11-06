@@ -1,7 +1,7 @@
 {
   "name": "@bitbaum/writingkit",
-  "version": "0.1.0",
-  "description": "Revision-safe content operations: coordinate generation and edits without overwriting newer writing.",
+  "version": "0.2.0",
+  "description": "Revision-safe content operations and the article composer every product shares: title and text with a microphone and writing help, speak-to-write, photos, charts, drafts that survive sign-in.",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@11.25.0",
@@ -16,14 +16,22 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    },
+    "./styles.css": "./styles.css"
   },
   "files": [
     "dist",
+    "styles.css",
     "README.md",
     "LICENSE"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -32,13 +40,35 @@
     "typecheck": "tsc -p tsconfig.contract.json",
     "build": "tsc -p tsconfig.json",
     "test": "node --test test/*.test.js",
-    "verify": "pnpm run build && pnpm run typecheck && pnpm run test"
+    "verify": "pnpm run build && pnpm run typecheck && pnpm run test && pnpm run test:browser",
+    "demo": "esbuild demo/composer.tsx --bundle --jsx=automatic --format=iife --define:process.env.NODE_ENV='\"production\"' --outfile=demo/dist/composer.js --log-level=warning",
+    "test:browser": "pnpm run demo && node test/browser.mjs"
   },
   "devDependencies": {
+    "@bitbaum/chatkit": "^0.23.0",
+    "@bitbaum/design-tokens": "^1.5.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "esbuild": "^0.28.2",
+    "playwright": "1.64.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "typescript": "^6.0.3"
   },
   "homepage": "https://github.com/bitbaum/writingkit#readme",
   "bugs": {
     "url": "https://github.com/bitbaum/writingkit/issues"
+  },
+  "peerDependencies": {
+    "@bitbaum/chatkit": "^0.23.0",
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "@bitbaum/chatkit": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   }
 }

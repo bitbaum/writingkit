@@ -8,9 +8,9 @@ export interface WritingOperation {
     readonly signal: AbortSignal;
 }
 export type WritingOutcome = {
-    readonly status: 'applied' | 'stale' | 'cancelled' | 'busy';
+    readonly status: "applied" | "stale" | "cancelled" | "busy";
 } | {
-    readonly status: 'failed';
+    readonly status: "failed";
     readonly error: unknown;
 };
 /**
@@ -38,3 +38,6 @@ export declare class WritingSession {
     dispose(): void;
     private status;
 }
+export * from "./assist.js";
+export * from "./text-edit.js";
+export * from "./drafts.js";

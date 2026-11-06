@@ -6,12 +6,53 @@ late answers after edits, document/account changes, cancellation or disposal.
 
 The package supports authoring adapters such as OrangeCat article editing,
 BiasLens source rewrites and Heidi language-learning adaptations. Product
-package plans record actual adoption. The package has no runtime dependencies.
+package plans record actual adoption. The core has no runtime dependencies;
+`/react` needs React and `@bitbaum/chatkit` (>=0.23) as peers.
+
+## The article composer (`@bitbaum/writingkit/react`)
+
+One place to write, the same in every product (fleet rule: the experience
+belongs to the package). A title and a text that both have the microphone and
+writing help (chatkit's `DictationField`), speak-to-write, photos, charts, a
+preview, a draft that survives sign-in, and a publish bar with one primary
+action. The app passes transports and context; it never builds a second composer.
+
+```tsx
+import { ArticleComposer } from '@bitbaum/writingkit/react';
+import '@bitbaum/writingkit/styles.css'; // chatkit's --ck-* tokens; nothing new to map
+
+<ArticleComposer
+  signedIn={!!user}
+  signInHref="/sign-in?next=/write"
+  authorName={user?.name}
+  draftKey={`app:draft:new:${user?.id}`}
+  anonymousDraftKey="app:draft:new:anon"
+  voice={{ transcribeUrl: '/api/transcribe' }}
+  photos={pick => <MyPhotoSearch onPick={pick} />} // optional; Photo tool appears with it
+  above={<WhatYouAreAnswering />} // context slot
+  below={<BylineField />} // e.g. a first byline
+  extraActions={<a className="wk-btn" href="/desk">Cancel</a>}
+  transport={{
+    assist: async ({ mode, instruction, title, body }) => callMyRoute(...), // {title, body} | null
+    publish: async (status, { title, body }) => { /* store, then navigate */ },
+  }}
+/>;
+```
+
+- **assist** is optional; without it (or signed out) no writing-help button is
+  shown that cannot work, and the Speak panel shows the way to sign in.
+- **publish** resolves `{ problems }` to show what is wrong, throws for a
+  network failure (said in words, text kept), and navigates on success itself.
+- Headless pieces for the route side: `parseAssistInput`, `assistMessages`,
+  `parseAssistAnswer` (the prompts treat the writer's text as material, never
+  as instructions, and forbid invented facts), plus `restoreDraft`/`writeDraft`,
+  `insertBlock`/`wrapRange`, `figureMarkdown`.
+- Labels are overridable (`labels`), so a product translates words, not layout.
 
 ## Use
 
 ```ts
-import { WritingSession } from '@bitbaum/writingkit';
+import { WritingSession } from "@bitbaum/writingkit";
 
 const session = new WritingSession({ documentId, revision });
 // On every committed edit, advance the host revision and synchronize it.
@@ -21,13 +62,13 @@ session.update({ documentId, revision: nextRevision });
 const input = { ...currentDraft };
 const outcome = await session.run(
   ({ signal, base }) => proposeEdit({ input, base, signal }),
-  proposal => {
+  (proposal) => {
     applyToEditor(proposal);
-  }
+  },
 );
 
-if (outcome.status === 'stale') showWritingChanged();
-if (outcome.status === 'failed') showRetry(outcome.error);
+if (outcome.status === "stale") showWritingChanged();
+if (outcome.status === "failed") showRetry(outcome.error);
 // busy/cancelled outcomes must not replace the current workspace's messages.
 session.cancel(); // invalidates the answer even if the provider ignores abort
 session.dispose(); // permanently closes this owner when the workspace is removed
