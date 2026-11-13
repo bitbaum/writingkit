@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@bitbaum/chatkit':
-        specifier: ^0.23.0
-        version: 0.23.0(react@19.3.1)
+        specifier: ^0.31.2
+        version: 0.31.3(react@19.3.1)
       '@bitbaum/design-tokens':
-        specifier: ^1.5.2
-        version: 1.5.2
+        specifier: ^1.7.1
+        version: 1.7.1
       '@types/react':
         specifier: ^19.0.0
         version: 19.3.0
@@ -38,17 +38,21 @@ importers:
 
 packages:
 
-  '@bitbaum/chatkit@0.23.0':
-    resolution: {integrity: sha512-iI7tyLcN7Zj3tXN9xZsb7Ixa2VPoDnuMX2taEzb2S1wMtV1A2A7tKfCJsqZp2GELrBCJTH9j59f6djbBF1H1RA==}
+  '@bitbaum/chatkit@0.31.3':
+    resolution: {integrity: sha512-WfYzac8+uqPUpgKsaoYUOJFoUvgXRJaCdwX5YVuwZuhh+1cF9IPg1tMtw2l/SDG8V9IeLo6QiEJGuqw0cpkszw==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
       react: '>=18'
 
-  '@bitbaum/design-tokens@1.5.2':
-    resolution: {integrity: sha512-ScF091XRs5ph109PkRgI3t5w3eersltlJUGea64MPItqXaT5asXM2x3Gj4t6THuFGojZ2pvMLAtuOc3DTmCoTg==}
+  '@bitbaum/design-tokens@1.7.1':
+    resolution: {integrity: sha512-ejJOZyaN043LTTXkokpCR8kwU6wBt4SNxepUY0cnFX/1ilZRdZwkxnB+vlSlz75DtrMc1pF3KjyOt8C3o5rIqA==}
     engines: {node: '>=20'}
     hasBin: true
+
+  '@bitbaum/threadkit@0.1.2':
+    resolution: {integrity: sha512-DzM0A/xlOfJStLpoiqleJUEbLSatxAUpUXihvgz5U+ZABLnQ7nCdMT32dz0C6nyKXEXfrnnEakbsChluTFXwSA==}
+    engines: {node: '>=20'}
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -330,12 +334,15 @@ packages:
 
 snapshots:
 
-  '@bitbaum/chatkit@0.23.0(react@19.3.1)':
+  '@bitbaum/chatkit@0.31.3(react@19.3.1)':
     dependencies:
+      '@bitbaum/threadkit': 0.1.2
       pdfjs-dist: 6.5.438
       react: 19.3.1
 
-  '@bitbaum/design-tokens@1.5.2': {}
+  '@bitbaum/design-tokens@1.7.1': {}
+
+  '@bitbaum/threadkit@0.1.2': {}
 
   '@esbuild/aix-ppc64@0.28.2':
     optional: true
