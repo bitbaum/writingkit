@@ -45,7 +45,7 @@
     "test:browser": "pnpm run demo && node test/browser.mjs"
   },
   "devDependencies": {
-    "@bitbaum/chatkit": "^0.31.3",
+    "@bitbaum/chatkit": "^0.32.0",
     "@bitbaum/design-tokens": "^1.7.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
